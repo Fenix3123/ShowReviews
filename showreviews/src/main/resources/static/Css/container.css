@@ -1,0 +1,11 @@
+body{
+		background-color: grey;
+		font-family: 'Poppins', sans-serif;
+}
+			
+.Container{
+		margin: 20px 100px 100px 100px;
+		background-color: white;
+		border: 5px solid black;
+		padding-left: 20px;
+}

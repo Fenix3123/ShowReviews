@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<title>Edit this tvshow</title>
+		<link rel="stylesheet" href="/Css/container.css">
+	</head>
+	<body>
+	  <div class="Container">
+		<h1>Edit this tvshow</h1>
+
+		<form action="" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<div>
+					<input type="hidden" th:field="${tvItem.id}" />
+				</div>
+				<div>
+					Name of tvshow: <input type="text" th:field="${tvItem.name}" />
+				</div>
+				<div>
+					rating: <input type="text" th:field="${tvItem.rating}"/>
+				</div>
+				<div>
+					Date of watch: <input type="date" name="dateofwatch" th:value="${tvItem.date}"/>
+				</div>
+				<div>
+					season: <input type="number" th:field="${tvItem.season}"/>
+				</div>
+				<div>
+					episode: <input type="number" th:field="${tvItem.episode}" />
+				</div>
+				<hr/>
+				<button type="submit">Update tvshow</button>
+			</form>
+			
+			<form th:action="@{/{userId}/tvshow/{tvId}/delete(tvId=${tvItem.id}, userId=${user.id})}" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<button type="submit">delete movie</button>
+			</form>
+		
+		
+		<a th:href="@{/dashboard2}">Go back</a>
+	  </div>
+	</body>
+</html>

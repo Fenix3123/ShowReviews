@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<title>Edit this show</title>
+		<link rel="stylesheet" href="/Css/container.css">
+		
+		<script type="text/javascript">
+		var obj1 = sessionStorage.getItem("tvshowobject");
+		var tvshowobject = JSON.parse(obj1);
+		console.log(tvshowobject.name);
+		</script>
+	</head>
+	<body>
+	   <div class="Container">
+		<h1>Edit this show</h1>
+
+		<form action="" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<div>
+					Movie name: <input type="text" id="namebox" th:field="${tvshowItem.name}" />
+				</div>
+				<div>
+					rating: <input type="text" th:field="${tvshowItem.rating}"/>
+				</div>
+				<div>
+					Date of watch: <input type="date" name="dateofwatch" th:value="${tvshowItem.date}"/>
+				</div>
+				<div>
+					Season: <input type="number" th:field="${tvshowItem.season}" />
+				</div>
+				<div>
+					episode: <input type="number" th:field="${tvshowItem.episode}" />
+				</div>
+				<hr/>
+				<button type="submit">Submit show</button>
+		</form>
+		
+		<a th:href="@{/dashboard2}">Go back</a>
+	  </div>
+	</body>
+	
+	<script type="text/javascript">
+		document.getElementById("namebox").value = tvshowobject.name;
+	</script>
+</html>

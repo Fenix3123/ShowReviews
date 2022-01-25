@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/Css/style2.css">
+		<title>Dashboard2</title>
+	</head>
+	
+	<body>
+		
+		<div class="tvContainer">
+		 <h1>Dashboard2</h1>
+		 <!-- Where search movies start-->
+		 <header>
+			<form method="post" action="/logout">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<button type="submit" id="logout" class="logout">logout</button>
+			</form>	
+				<button type="submit" class="switchbutton"><a href="/dashboard">movie-Search</a></button>
+			<form id="form">
+				<input type="text" placeholder="Search" id="search" class="search">
+			</form>
+		</header>
+		
+		<div id="tags"></div>
+		
+		<div id="myNav" class="overlay">
+			<!-- Button to close the overlay navigation -->
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		  
+			<!-- Overlay content -->
+			<div class="overlay-content" id="overlay-content"></div>
+			
+			<a href="javascript:void(0)" class="arrow left-arrow" id="left-arrow">&#8656;</a> 
+			
+			<a href="javascript:void(0)" class="arrow right-arrow" id="right-arrow" >&#8658;</a>
+        </div>
+		
+	    <main id="main"></main>
+		
+		<div class="pagination">
+			<div class="page" id="prev">Previous Page</div>
+			<div class="current" id="current">1</div>
+			<div class="page" id="next">Next Page</div>
+
+		</div>
+
+		<script src="/Js/script2.js"></script>
+		<script th:inline="javascript">
+			var token  = /*[[${_csrf.token}]]*/''
+		</script>
+	
+	<!-- Where it ends-->
+		 <h2>Enter your movies here </h2>
+			<div class="listContainer">
+				<div class="movieform">
+				<form action="/movie" method="post">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						<div>
+							movie name: <input type="text" th:field="${movie.name}" />
+						</div>
+						<div>
+							movie rating: <input type="text" th:field="${movie.rating}" />
+						</div>
+						<div>
+							Date of watch: <input type="date" name="dateofwatch" />
+						</div>
+						<button type="submit">submit</button>
+				</form>
+				</div>
+				<div class="movieList">
+				  <h3> List of Movies</h3>
+					<table border="1">
+						<tr>
+							<th>Name</th>
+							<th>Rating</th>
+							<th>date of watch</th>
+						</tr>
+						<tr th:each="movieItem: ${movieList}">
+							<th><a th:href="@{/{userId}/movie/{movieId}(movieId=${movieItem.id}, userId=${user.id})}">[[${movieItem.name}]]</a></th>
+							<th th:text="${movieItem.rating}"></th>
+							<th th:text="${movieItem.date}"></th>
+						</tr>
+					</table>
+				  </div>
+				  <hr/>
+			</div>
+		<h2>Enter your Tv-Shows here </h2>
+			<div class="listContainer">
+				<div class="tvform">
+				<form action="/tvshow" method="post">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						<div>
+							series name: <input type="text" th:field="${tvshow.name}" />
+						</div>
+						<div>
+							series rating: <input type="text" th:field="${tvshow.rating}" />
+						</div>
+						<div>
+							Date of watch: <input type="date" name="dateofwatch" />
+						</div>
+						<div>
+							Season: <input type="number" th:field="${tvshow.season}" />
+						</div>
+						<div>
+							episode: <input type="number" th:field="${tvshow.episode}" />
+						</div>
+						<button type="submit">submit</button>
+						
+				</form>
+				</div>
+				<div class="tvList">
+				  <h3> List of TvShows</h3>
+					<table border="1">
+						<tr>
+							<th>Name</th>
+							<th>Rating</th>
+							<th>date of watch</th>
+							<th>season</th>
+							<th>episode</th>
+						</tr>
+						<tr th:each="tvList: ${tvList}">
+							<th><a th:href="@{/{userId}/tvshow/{tvId}(tvId=${tvList.id}, userId=${user.id})}">[[${tvList.name}]]</a></th>
+							<th th:text="${tvList.rating}"></th>
+							<th th:text="${tvList.date}"></th>
+							<th th:text="${tvList.season}"></th>
+							<th th:text="${tvList.episode}"></th>
+						</tr>
+					</table>
+				   </div>
+				   <hr/>
+			</div>
+				
+		</div>
+	</body>
+	
+</html>
