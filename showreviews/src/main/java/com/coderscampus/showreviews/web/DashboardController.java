@@ -27,6 +27,11 @@ public class DashboardController {
 	
 	@GetMapping("/dashboard")
 	public String getDashBoard(@AuthenticationPrincipal User user, ModelMap model) {
+		getDashboardRef(user, model);
+		return "Dashboard";
+	}
+
+	private void getDashboardRef(User user, ModelMap model) {
 		model.put("movie", new Movies());
 		model.put("tvshow", new Tvshows());
 		model.put("user", user);
@@ -36,20 +41,11 @@ public class DashboardController {
 		List<Tvshows> tvList = user.getTvshows();
 		model.put("movieList", movieList);
 		model.put("tvList", tvList);
-		return "Dashboard";
 	}
 	
 	@GetMapping("/dashboard2")
 	public String getDashBoard2(@AuthenticationPrincipal User user, ModelMap model) {
-		model.put("movie", new Movies());
-		model.put("tvshow", new Tvshows());
-		model.put("user", user);
-		//movies
-		user = userService.findById(user.getId());
-		List<Movies> movieList = user.getMovies();	
-		List<Tvshows> tvList = user.getTvshows();
-		model.put("movieList", movieList);
-		model.put("tvList", tvList);
+		getDashboardRef(user, model);
 		return "Dashboard2";
 	}
 	
