@@ -43,7 +43,7 @@ public class TvshowController {
 	
 	@PostMapping("/deleteTvshow")
 	@ResponseBody
-	public String deleteOneMovie2 (@AuthenticationPrincipal User user, @RequestBody String tvshowname) {
+	public String deleteOneTv2 (@AuthenticationPrincipal User user, @RequestBody String tvshowname) {
 		User user2 = userService.findById(user.getId());
 		int namesize = tvshowname.length();
 		String tvshowNameActual = tvshowname.substring(1, namesize-1);
@@ -60,13 +60,17 @@ public class TvshowController {
 	
 	@PostMapping("/tvshow")
 	public String saveTvshow(@AuthenticationPrincipal User user, Tvshows tvshow, String dateofwatch) {
+		saveTvshowRef(user, tvshow, dateofwatch);
+		return "redirect:/dashboard2";
+	}
+
+	private void saveTvshowRef(User user, Tvshows tvshow, String dateofwatch) {
 		LocalDate localDate = LocalDate.parse(dateofwatch);
 		tvshow.setDate(localDate);
 		user = userService.findById(user.getId());
 		tvshow.getUsers().add(user);
 		user.getTvshows().add(tvshow);
 		tvService.saveTvshows(tvshow);
-		return "redirect:/dashboard2";
 	}
 	
 	
@@ -80,7 +84,7 @@ public class TvshowController {
 	}
 	
 	@PostMapping("/{userId}/tvshow/{tvId}")
-	public String getTvshow(Tvshows tvshow, String dateofwatch, @PathVariable Long userId) {
+	public String postTvshow(Tvshows tvshow, String dateofwatch, @PathVariable Long userId) {
 		LocalDate localDate = LocalDate.parse(dateofwatch);
 		tvshow.setDate(localDate);
 		tvService.saveTvshows(tvshow);
@@ -103,12 +107,7 @@ public class TvshowController {
 	
 	@PostMapping("/tvshowview2")
 	public String postTvView2(@AuthenticationPrincipal User user, Tvshows tvshow, String dateofwatch) {
-		LocalDate localDate = LocalDate.parse(dateofwatch);
-		tvshow.setDate(localDate);
-		user = userService.findById(user.getId());
-		tvshow.getUsers().add(user);
-		user.getTvshows().add(tvshow);
-		tvService.saveTvshows(tvshow);
+		saveTvshowRef(user, tvshow, dateofwatch);
 		return "redirect:/dashboard2";
 	}
 }

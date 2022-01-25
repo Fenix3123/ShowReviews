@@ -29,13 +29,17 @@ public class MovieController {
 	
 	@PostMapping("/movie")
 	public String saveMovie(@AuthenticationPrincipal User user, Movies movie, String dateofwatch) {
+		saveMoviesRef(user, movie, dateofwatch);
+		return "redirect:/dashboard";
+	}
+
+	private void saveMoviesRef(User user, Movies movie, String dateofwatch) {
 		LocalDate localDate = LocalDate.parse(dateofwatch);
 		movie.setDate(localDate);
 		user = userService.findById(user.getId());
 		movie.getUsers().add(user);
 		user.getMovies().add(movie);
 		moviesService.saveMovies(movie);
-		return "redirect:/dashboard";
 	}
 	
 	@PostMapping("/{userId}/movie/{movieId}/delete")
@@ -102,12 +106,7 @@ public class MovieController {
 	
 	@PostMapping("/movieview2")
 	public String postMovieView2(@AuthenticationPrincipal User user, Movies movie, String dateofwatch) {
-		LocalDate localDate = LocalDate.parse(dateofwatch);
-		movie.setDate(localDate);
-		user = userService.findById(user.getId());
-		movie.getUsers().add(user);
-		user.getMovies().add(movie);
-		moviesService.saveMovies(movie);
+		saveMoviesRef(user, movie, dateofwatch);
 		return "redirect:/dashboard";
 	}
 }
