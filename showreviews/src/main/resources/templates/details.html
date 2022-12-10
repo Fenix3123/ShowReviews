@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<title>Login</title>
+		<style>
+			body{
+				background-color: grey;
+				font-family: 'Poppins', sans-serif;
+			}
+			
+			.Container{
+				margin: 20px 100px 100px 100px;
+				background-color: white;
+				border: 5px solid black;
+				padding-bottom: 20px;
+			}
+		</style>
+	</head>
+	
+	<body>
+	  <div class="Container">
+	  	<h1 style="text-align: center;"> CHANGE YOUR DETAILS</h1>
+	  	<h1>Edit this movie</h1>
+
+		<form action="/details" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<div>
+					<input type="hidden" th:field="${user.id}" />
+				</div>
+				<div>
+					new username: <input type="text" th:field="${user.username}" />
+				</div>
+				<div>
+					new password: <input type="text" th:field="${user.password}"/>
+				</div>
+				<div>
+					check password: <input type="text" name="newpass"/>
+				</div>
+				<hr/>
+				<button type="submit">Update account</button>
+		</form>
+		
+	  </div>
+	</body>
+</html>

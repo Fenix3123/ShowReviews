@@ -10,7 +10,7 @@ public class LearningTest {
 	public void encriptpassword() {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		
-		String password = passwordEncoder.encode("Fenixxia1");
+		String password = passwordEncoder.encode("Stanley1516!");
 		System.out.println(password);
 	}
 }
