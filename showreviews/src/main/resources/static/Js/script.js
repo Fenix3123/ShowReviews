@@ -262,7 +262,7 @@ function enterMovie(movie){
 			"date": ""
 		}
 		sessionStorage.setItem("movieobject",JSON.stringify(movieObject))
-		window.location.href = 'http://localhost:8080/movieview2';
+		window.location.href = 'http://localhost:8090/movieview2';
 	
 }
 

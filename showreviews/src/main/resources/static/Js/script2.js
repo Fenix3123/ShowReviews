@@ -251,7 +251,7 @@ function enterTvshow(Tvshow){
 			"episode":0
 		}
 		sessionStorage.setItem("tvshowobject",JSON.stringify(tvshowObject))
-		window.location.href = 'http://localhost:8080/tvshowview2';
+		window.location.href = 'http://localhost:8090/tvshowview2';
 	
 }
 
